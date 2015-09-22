@@ -1,0 +1,17 @@
+{
+  "name": "xg-htmlhint",
+  "version": "0.0.1",
+  "description": "\"A Static Code Analysis Tool for HTML,Fork from https://github.com/yaniswang/HTMLHint.\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "html",
+    "hint",
+    "Analysis",
+    "Javascript"
+  ],
+  "author": "Yang Jiyuan",
+  "license": "MIT"
+}
