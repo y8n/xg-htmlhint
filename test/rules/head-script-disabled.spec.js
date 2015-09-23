@@ -11,6 +11,7 @@ var ruldId = 'head-script-disabled',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 

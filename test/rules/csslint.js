@@ -14,6 +14,7 @@ ruleOptions[ruldId] = {
         "display-property-grouping": true,
         "known-properties": true
     };
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 

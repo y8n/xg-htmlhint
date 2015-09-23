@@ -14,6 +14,7 @@ ruleOptions[ruldId] = {
         "undef": true,
         "unused": true
     };
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 

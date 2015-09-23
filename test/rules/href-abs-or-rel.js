@@ -9,6 +9,7 @@ var HTMLHint  = require("../../index").HTMLHint;
 
 var ruldId = 'href-abs-or-rel';
 var ruleOptions = {};
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 

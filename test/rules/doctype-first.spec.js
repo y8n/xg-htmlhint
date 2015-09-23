@@ -24,7 +24,7 @@ describe('Rules: '+ruldId, function(){
     });
 
     it('Doctype be first should not result in an error', function(){
-        var code = '<!DOCTYPE HTML><html>';
+        var code = '<!DOCTYPE HTML><html></html>';
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(0);
     });

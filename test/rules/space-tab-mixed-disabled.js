@@ -11,6 +11,7 @@ var ruldId = 'space-tab-mixed-disabled',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 
@@ -30,7 +31,7 @@ describe('Rules: '+ruldId, function(){
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(1);
         // multi line
-        code = '<div>\r\n	 <a href="a">bbb</a>';
+        code = '<div>\r\n	 <a href="a">bbb</a></div>';
         messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(1);
         expect(messages[0].rule.id).to.be(ruldId);
@@ -43,7 +44,7 @@ describe('Rules: '+ruldId, function(){
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(0);
 
-        code = '<div>\r\n     <a href="a">bbb</a>';
+        code = '<div>\r\n     <a href="a">bbb</a></div>';
         messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(0);
     });

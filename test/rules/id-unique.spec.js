@@ -11,6 +11,7 @@ var ruldId = 'id-unique',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 

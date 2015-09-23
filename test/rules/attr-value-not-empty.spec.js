@@ -11,6 +11,7 @@ var ruldId = 'attr-value-not-empty',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 
