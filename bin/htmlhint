@@ -1,0 +1,162 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+    fs = require('fs'),
+    path = require('path'),
+    HTMLHint  = require("../index").HTMLHint,
+    pkg = require('../package.json');
+
+require('colors');
+
+
+program.on('--help', function(){
+    console.log('  Examples:');
+    console.log('');
+    console.log('    htmlhint -l');
+    console.log('    htmlhint -c .config test.html');
+    console.log('');
+});
+
+/**
+ * 删除原有的-r选项
+ */
+program
+    .version(pkg.version)
+    .usage('[options] <file ...>')
+    .option('-l, --list', 'show all of the rules available.')
+    .option('-c, --config <file>', 'custom configuration file.')
+    .parse(process.argv);
+
+if(program.list){
+    listRules();
+    quit(0);
+}
+
+var arrAllFiles = getAllFiles(program.args);
+
+/**
+ * 默认有rule规则，如果当前目录有.htmlhintrc文件的话，在默认规则的基础上合并自定义规则。也可以使用-c命令指定加载配置文件
+ */
+var ruleset = getConfig(program.config);
+
+quit(processFiles(arrAllFiles, ruleset));
+
+function listRules(){
+    var rules = HTMLHint.rules;
+	var rule;
+    console.log('\r\nAll rules:');
+    console.log('======================================');
+    for (var id in rules){
+        rule = rules[id];
+        console.log('\r\n'+rule.id+' :');
+        console.log('    '+rule.description);
+    }
+}
+
+function getConfig(configFile){
+    if(configFile === undefined){
+        configFile = '.htmlhintrc';
+    }
+    if(fs.existsSync(configFile)){
+        var config = fs.readFileSync(configFile, 'utf-8'),
+            ruleset;
+        /**
+         * 如果配置文件不是标准的json格式的话，提示错误，执行默认的配置
+         */
+        if(config){
+            try{
+                ruleset = JSON.parse(config);
+            }
+            catch(e){
+                console.log("configFile Error".red);
+            }
+            return ruleset;
+        }
+    }
+}
+
+function getAllFiles(arrTargets){
+    var arrAllFiles = [];
+    if(arrTargets.length > 0){
+        for(var i=0,l=arrTargets.length;i<l;i++){
+            getFiles(arrTargets[i], arrAllFiles);
+        }
+    }
+    else{
+        getFiles(process.cwd(), arrAllFiles);
+    }
+    return arrAllFiles;
+}
+
+function getFiles(filepath, arrFiles){
+    if(fs.existsSync(filepath) === false){
+        return;
+    }
+    filepath = path.resolve(process.cwd(), filepath);
+    var stat = fs.statSync(filepath);
+    if(stat.isFile() && /\.html?$/i.test(filepath)){
+        arrFiles.push(filepath);
+    }
+    else if(stat.isDirectory()){
+        fs.readdirSync(filepath).forEach(function(filename){
+            getFiles(filepath + '/' + filename, arrFiles);
+        });
+    }
+}
+/**
+ * 区分显示Error和Warning
+ */
+function processFiles(arrFiles, ruleset){
+    var exitcode = 0,
+        allHintCountObj = {
+            error:0,
+            warning:0
+        };
+    arrFiles.forEach(function(filepath){
+        var hintCountObj = hintFile(filepath, ruleset);
+        if(hintCountObj.error > 0){
+            exitcode = 1;
+        }
+        allHintCountObj.error += hintCountObj.error;
+        allHintCountObj.warning += hintCountObj.warning;
+    });
+    if(allHintCountObj.error > 0 || allHintCountObj.warning > 0){
+        console.log('\r\n%d Errors,%d Warnings'.red, allHintCountObj.error,allHintCountObj.warning);
+    }
+    else{
+        console.log('Congratulations,There are no Error or Warning.'.green);
+    }
+    return exitcode;
+}
+
+function hintFile(filepath, ruleset){
+    var html = fs.readFileSync(filepath, 'utf-8');
+    var messages = HTMLHint.verify(html, ruleset);
+    var msgObj = {
+        error:0,
+        warning:0
+    };
+    if(messages.length > 0){
+        console.log(filepath+':');
+        messages.forEach(function(hint){
+            console.log('\tline %d, col %d: %s', hint.line, hint.col, hint.message[hint.type === 'error'?'red':'yellow']);
+            if(hint.type === 'error'){
+                msgObj.error++;
+            }else{
+                msgObj.warning++;
+            }
+        });
+        console.log('');
+    }
+    return msgObj;
+}
+
+function quit(code){
+    if ((!process.stdout.flush || !process.stdout.flush()) && (parseFloat(process.versions.node) < 0.5)) {
+        process.once("drain", function () {
+            process.exit(code || 0);
+        });
+    } else {
+        process.exit(code || 0);
+    }
+}
