@@ -76,6 +76,8 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('build', ["concat"]);
+
     grunt.registerTask('dev', ['jshint', 'concat', 'test']);
 
     grunt.registerTask('test', ["concat",'mocha-hack']);

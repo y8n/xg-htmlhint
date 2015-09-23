@@ -18,19 +18,19 @@ describe('Rules: '+ruldId, function(){
     it('Img tag have empty alt attribute should not result in an error', function(){
         var code = '<img width="200" height="300" alt="">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(2);
     });
 
     it('Img tag have non empty alt attribute should not result in an error', function(){
         var code = '<img width="200" height="300" alt="test">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(1);
     });
 
     it('Img tag have not alt attribute should result in an error', function(){
         var code = '<img width="200" height="300">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(1);
+        expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be(ruldId);
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(5);
@@ -41,19 +41,19 @@ describe('Rules: '+ruldId, function(){
     it('A tag have not alt attribute should not result in an error', function(){
         var code = '<a>';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(2);
     });
 
     it('Area tag have not href and alt attributes should not result in an error', function(){
         var code = '<area>';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(1);
     });
 
     it('Area[href] tag have not alt attribute should result in an error', function(){
         var code = '<area href="#test">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(1);
+        expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be(ruldId);
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(6);
@@ -63,7 +63,7 @@ describe('Rules: '+ruldId, function(){
     it('Area[href] tag have empty alt attribute should result in an error', function(){
         var code = '<area href="#test" alt="">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(1);
+        expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be(ruldId);
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(6);
@@ -73,25 +73,25 @@ describe('Rules: '+ruldId, function(){
     it('Area[href] tag have non emtpy alt attribute should not result in an error', function(){
         var code = '<area href="#test" alt="test">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(1);
     });
 
     it('Input tag have not type and alt attributes should not result in an error', function(){
         var code = '<input>';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(1);
     });
 
     it('Input[type="text"] tag have not alt attribute should not result in an error', function(){
         var code = '<input type="text">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(1);
     });
 
     it('Input[type="image"] tag have not alt attribute should result in an error', function(){
         var code = '<input type="image">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(1);
+        expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be(ruldId);
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(7);
@@ -101,7 +101,7 @@ describe('Rules: '+ruldId, function(){
     it('Input[type="image"] tag have empty alt attribute should result in an error', function(){
         var code = '<input type="image" alt="">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(1);
+        expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be(ruldId);
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(7);
@@ -111,6 +111,6 @@ describe('Rules: '+ruldId, function(){
     it('Input[type="image"] tag have non emtpy alt attribute should not result in an error', function(){
         var code = '<input type="image" alt="test">';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(0);
+        expect(messages.length).to.be(1);
     });
 });

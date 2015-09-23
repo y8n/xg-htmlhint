@@ -13,7 +13,7 @@ HTMLHint.addRule({
                 mapAttrs = parser.getMapAttrs(event.attrs),
                 col = event.col + tagName.length + 1,
                 selector;
-            if(tagName === 'img' && !('alt' in mapAttrs)){
+            if(tagName === 'img' && (!('alt' in mapAttrs) || mapAttrs["alt"].trim()==='')){
                 reporter.warn('An alt attribute must be present on <img> elements.', event.line, col, self, event.raw);
             }
             else if((tagName === 'area' && 'href' in mapAttrs) ||
