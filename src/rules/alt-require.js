@@ -2,6 +2,9 @@
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
  * Copyright (c) 2014, Takeshi Kurosawa <taken.spc@gmail.com>
  * MIT Licensed
+ *
+ * @upgrade Yang Jiyuan  yangjiyuan@meituan.com
+ *
  */
 HTMLHint.addRule({
     id: 'alt-require',
@@ -13,6 +16,9 @@ HTMLHint.addRule({
                 mapAttrs = parser.getMapAttrs(event.attrs),
                 col = event.col + tagName.length + 1,
                 selector;
+            /**
+             * alt 不能是空字符串
+             */
             if(tagName === 'img' && (!('alt' in mapAttrs) || mapAttrs["alt"].trim()==='')){
                 reporter.warn('An alt attribute must be present on <img> elements.', event.line, col, self, event.raw);
             }

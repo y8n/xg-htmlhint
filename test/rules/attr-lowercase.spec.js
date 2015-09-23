@@ -11,11 +11,12 @@ var ruldId = 'attr-lowercase',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 
     it('Not all lowercase attr should result in an error', function(){
-        var code = '<p TEST="abc">';
+        var code = '<p TEST="abc"></p>';
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(1);
         expect(messages[0].rule.id).to.be(ruldId);
@@ -24,13 +25,13 @@ describe('Rules: '+ruldId, function(){
     });
 
     it('Lowercase attr should not result in an error', function(){
-        var code = '<p test="abc">';
+        var code = '<p test="abc"></p>';
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(0);
     });
 
     it('Set is false not result in an error', function(){
-        var code = '<p TEST="abc">';
+        var code = '<p TEST="abc"></p>';
         ruleOptions[ruldId] = false;
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(0);
