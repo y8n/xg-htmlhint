@@ -19,7 +19,6 @@ var HTMLHint = (function (undefined) {
         'tag-pair': true,
         'spec-char-escape': true,
         'id-unique': true,
-        'src-not-empty': true,
         'attr-no-duplication': true
     };
 
@@ -45,15 +44,23 @@ var HTMLHint = (function (undefined) {
             return '';
         });
 
-        if(ruleset === undefined || Object.keys(ruleset).length ===0){
-            ruleset = HTMLHint.defaultRuleset;
-        }else{
+        /**
+         * 没有自定义地址的时候使用默认地址，有自定义的时候和默认地址合并
+         */
+        var _ruleset = {};
+        for(var ii in HTMLHint.defaultRuleset){
+            if(Object.getOwnPropertyNames(HTMLHint.defaultRuleset).indexOf(ii) !== -1){
+                _ruleset[ii] = HTMLHint.defaultRuleset[ii];
+            }
+        }
+        if(ruleset && Object.keys(ruleset).length > 0){
             for(var i in ruleset){
                 if(Object.getOwnPropertyNames(ruleset).indexOf(i) !== -1){
-                    HTMLHint.defaultRuleset[i] = ruleset[i];
+                    _ruleset[i] = ruleset[i];
                 }
             }
         }
+        ruleset = _ruleset;
 
         HTMLHint.ruleset = ruleset;
 
