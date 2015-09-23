@@ -11,11 +11,12 @@ var ruldId = 'attr-value-double-quotes',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
+ruleOptions["doctype-first"] = false;
 
 describe('Rules: '+ruldId, function(){
 
     it('Attribute value closed by single quotes should result in an error', function(){
-        var code = "<a href='abc' title=abc style=''>";
+        var code = "<a href='abc' title=abc style=''></a>";
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(3);
         expect(messages[0].rule.id).to.be(ruldId);
