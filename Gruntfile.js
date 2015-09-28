@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        clean: ["lib", "lib-cov", "coverage.html"],
+        clean: ["lib"],
         concat: {
             htmlhint: {
                 src: ['src/core.js', 'src/reporter.js', 'src/htmlparser.js', 'src/rules/*.js'],
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         uglify: {
             htmlhint: {
                 options: {
-                    banner: "/*!\r\n * xg-HTMLHint v<%= pkg.version %>\r\n * https://github.com/yangjiyuan/HTMLHint\r\n *\r\n * (c) 2015 Yang Jiyuan<YangJiyuan@meituan.com>.\r\n * MIT Licensed\r\n */\n",
+                    banner: "/*!\r\n * xg-HTMLHint v<%= pkg.version %>\r\n * https://github.com/yangjiyuan/xg-htmlHint\r\n *\r\n * (c) 2015 Yang Jiyuan<YangJiyuan@meituan.com>.\r\n * MIT Licensed\r\n */\n",
                     beautify: {
                         ascii_only: true
                     }
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
     });
 
 
-    grunt.registerTask('dev', ['jshint', 'concat', 'test']);
+    grunt.registerTask('build', ['jshint','clean', 'concat']);
 
     grunt.registerTask('test', ['jshint', "concat",'mocha-hack']);
 

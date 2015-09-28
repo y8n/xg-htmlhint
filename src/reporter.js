@@ -41,7 +41,7 @@
                 rule: {
                     id: rule.id,
                     description: rule.description,
-                    link: 'https://github.com/yaniswang/HTMLHint/wiki/' + rule.id
+                    link: 'https://github.com/yangjiyuan/xg-htmlhint/wiki/' + rule.id
                 }
             });
         }
