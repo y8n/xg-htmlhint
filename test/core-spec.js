@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2014, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2014, Yang Jiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  *
- * @upgrade Yang Jiyuan <yangjiyuan@meituan.com>
  *
  */
 

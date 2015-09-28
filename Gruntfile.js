@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         uglify: {
             htmlhint: {
                 options: {
-                    banner: "/*!\r\n * xg-HTMLHint v<%= pkg.version %>\r\n * https://github.com/yangjiyuan/xg-htmlHint\r\n *\r\n * (c) 2015 Yang Jiyuan<YangJiyuan@meituan.com>.\r\n * MIT Licensed\r\n */\n",
+                    banner: "/*!\r\n * xg-HTMLHint v<%= pkg.version %>\r\n * https://github.com/yangjiyuan/xg-htmlHint\r\n *\r\n * (c) 2015 Yang Jiyuan<yjy972080142@gmail.com>.\r\n * MIT Licensed\r\n */\n",
                     beautify: {
                         ascii_only: true
                     }

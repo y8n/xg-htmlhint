@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, Yang Jiyuan <yangjiyuan@meituan.com>
+ * Copyright (c) 2015, Yang Jiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 var HTMLHint = (function (undefined) {
@@ -12,10 +12,11 @@ var HTMLHint = (function (undefined) {
 
     //默认配置
     HTMLHint.defaultRuleset = {
+        'doctype-first': true,
+        'title-tag-require': true,
         'tagname-lowercase': true,
         'attr-lowercase': true,
         'attr-value-double-quotes': true,
-        'doctype-first': true,
         'tag-pair': true,
         'spec-char-escape': true,
         'id-unique': true,

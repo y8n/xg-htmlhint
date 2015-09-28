@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
- * Copyright (c) 2015, Yang Jiyuan <yangjiyuan@meituan.com>
+ * Copyright (c) 2015, Yang Jiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 HTMLHint.addRule({

@@ -12,6 +12,7 @@ var ruldId = 'head-script-disabled',
 
 ruleOptions[ruldId] = true;
 ruleOptions["doctype-first"] = false;
+ruleOptions["title-tag-require"] = false;
 
 describe('Rules: '+ruldId, function(){
 
