@@ -12,39 +12,37 @@ HTMLHint.addRule({
         parser.addListener('tagstart', function(event){
             var tagName = event.tagName.toLowerCase();
             if (mapEmptyTags[tagName] === undefined && !event.close){
-                stack.push(tagName);
+                stack.push({
+                    tagName:tagName,
+                    line:event.line,
+                    col:event.col
+                });
             }
         });
         parser.addListener('tagend', function(event){
             var tagName = event.tagName.toLowerCase();
             //向上寻找匹配的开始标签
-            for(var pos = stack.length-1;pos >= 0; pos--){
-                if(stack[pos] === tagName){
+            var pos;
+            for(pos = stack.length-1;pos >= 0; pos--){
+                if(stack[pos] && stack[pos].tagName === tagName){
                     break;
                 }
             }
             if(pos >= 0){
-                var arrTags = [];
                 for(var i=stack.length-1;i>pos;i--){
-                    arrTags.push('</'+stack[i]+'>');
-                }
-                if(arrTags.length > 0){
-                    reporter.error('Tag must be paired, missing: [ '+ arrTags.join('') + ' ]', event.line, event.col, self, event.raw);
+                    reporter.error('Tag must be paired, missing: [ </'+ stack[i].tagName + '> ]', stack[i].line, stack[i].col, self, stack[i].raw);
                 }
                 stack.length=pos;
-            }
-            else{
-                reporter.error('Tag must be paired, no start tag: [ ' + event.raw + ' ]', event.line, event.col, self, event.raw);
+            }else{
+                reporter.error('Tag must be paired, no start tag: [ <' + event.tagName + '> ]', event.line, event.col, self, event.raw);
             }
         });
-        parser.addListener('end', function(event){
-            var arrTags = [];
+        parser.addListener('end', function(){
             for(var i=stack.length-1;i>=0;i--){
-                arrTags.push('</'+stack[i]+'>');
-            }
-            if(arrTags.length > 0){
-                reporter.error('Tag must be paired, missing: [ '+ arrTags.join('') + ' ]', event.line, event.col, self, '');
+                reporter.error('Tag must be paired, missing: [ </'+ stack[i].tagName + '> ]', stack[i].line, stack[i].col, self, '');
             }
         });
     }
 });
+
+

@@ -15,9 +15,9 @@ var HTMLHint = (function (undefined) {
         'doctype-first': true,
         'title-tag-require': true,
         'tagname-lowercase': true,
+        'tag-pair': true,
         'attr-lowercase': true,
         'attr-value-double-quotes': true,
-        'tag-pair': true,
         'spec-char-escape': true,
         'id-unique': true,
         'attr-no-duplication': true
