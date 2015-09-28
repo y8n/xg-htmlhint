@@ -47,4 +47,10 @@ describe('Rules: '+ruldId, function(){
         expect(messages.length).to.be(0);
     });
 
+    it('inline rule should not result in an error', function(){
+        var code = '<!-- htmlhint doctype-first:false --><div></div>';
+        var messages = HTMLHint.verify(code, ruleOptions);
+        expect(messages.length).to.be(0);
+    });
+
 });
