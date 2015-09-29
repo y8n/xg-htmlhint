@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2015, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 HTMLHint.addRule({
@@ -9,13 +10,12 @@ HTMLHint.addRule({
         var self = this;
         parser.addListener('tagstart', function(event){
             var attrs = event.attrs,
-                attr,
-                col = event.col + event.tagName.length + 1;
+                attr;
             for(var i=0, l=attrs.length;i<l;i++){
                 attr = attrs[i];
                 if((attr.value !== '' && attr.quote !== '"') ||
                     (attr.value === '' && attr.quote === "'")){
-                    reporter.error('The value of attribute [ '+attr.name+' ] must be in double quotes.', event.line, col + attr.index, self, attr.raw);
+                    reporter.error('The value of attribute [ '+attr.name+' ] must be in double quotes.', attr.line, attr.col, self, attr.raw);
                 }
             }
         });

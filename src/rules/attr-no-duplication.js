@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2014, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 HTMLHint.addRule({
@@ -11,17 +12,26 @@ HTMLHint.addRule({
             var attrs = event.attrs;
             var attr;
             var attrName;
-            var col = event.col + event.tagName.length + 1;
 
             var mapAttrName = {};
             for(var i=0, l=attrs.length;i<l;i++){
                 attr = attrs[i];
                 attrName = attr.name;
-                if(mapAttrName[attrName] === true){
-                    reporter.error('Duplicate of attribute name [ '+attr.name+' ] was found.', event.line, col + attr.index, self, attr.raw);
+                if(mapAttrName[attrName]){
+                    mapAttrName[attrName].push(attr);
+                }else{
+                    mapAttrName[attrName] = [attr];
                 }
-                mapAttrName[attrName] = true;
             }
+
+            var attrArr,ii;
+            for(ii in mapAttrName){
+                attrArr = mapAttrName[ii];
+                if(attrArr.length>1){
+                    reporter.error('Duplicate of attribute name [ '+ii+' ] was found.', attrArr[0].line, attrArr[0].col, self, attrArr[0].raw);
+                }
+            }
+
         });
     }
 });

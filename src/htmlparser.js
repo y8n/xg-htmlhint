@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2015, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 var HTMLParser = (function(undefined){
@@ -94,7 +95,18 @@ var HTMLParser = (function(undefined){
                                 value = attrMatch[3] ? attrMatch[3] :
                                     attrMatch[5] ? attrMatch[5] :
                                     attrMatch[6] ? attrMatch[6] : '';
-                            arrAttrs.push({'name': name, 'value': value, 'quote': quote, 'index': attrMatch.index, 'raw': attrMatch[0]});
+                            var tagLine = line,
+                                tagCol = matchIndex - lastLineIndex + 1,
+                                attrLineCol = self.getAttrPos(tagLine,tagCol,tagName,attrs,attrMatch.index,attrMatch[0]);
+                            arrAttrs.push({
+                                'name': name,
+                                'value': value,
+                                'quote': quote,
+                                'index': attrMatch.index,
+                                'raw': attrMatch[0],
+                                'line':attrLineCol.line,
+                                'col':attrLineCol.col
+                            });
                             attrMatchCount += attrMatch[0].length;
                         }
                         if(attrMatchCount === attrs.length){
@@ -202,7 +214,32 @@ var HTMLParser = (function(undefined){
                 }
             }
         },
-
+        // get a attribute's position
+        getAttrPos: function (tagLine,tagCol,tagName,attrs,attrIndex,attrRaw) {
+            var regLine = /\r?\n/g,spaces;
+            var lineCount,attrLine,attrCol;
+            var text = attrs.substr(0,attrIndex);
+            lineCount = text.split(regLine).length-1 + attrRaw.split(regLine).length-1;
+            attrLine = tagLine + lineCount;
+            if(attrLine === tagLine){ // 如果属性和标签是在同一行
+                spaces = attrs.match(/^( *)/);
+                attrCol = tagCol +tagName.length + (spaces.length>1?spaces[1].length:0)+attrIndex +1;
+            }else if(attrRaw.split(regLine).length>1){
+                spaces = attrRaw.match(/\n( *)\w/i);
+                if(spaces && spaces.length>1){
+                    attrCol = spaces[1].length+1;
+                }
+            }else{
+                var pos = text.lastIndexOf('\n');
+                if(pos !== -1){
+                    attrCol = text.length - pos +1;
+                }
+            }
+            return {
+                line:attrLine,
+                col:attrCol?attrCol:tagCol
+            };
+        },
         //fix pos if event.raw have \n
         fixPos: function(event, index){
             var text = event.raw.substr(0, index);
