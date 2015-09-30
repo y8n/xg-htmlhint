@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2015, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 HTMLHint.addRule({
@@ -11,8 +12,8 @@ HTMLHint.addRule({
         parser.addListener('tagstart', function(event){
             var tagName = event.tagName.toLowerCase();
             if(mapEmptyTags[tagName] !== undefined){
-                if(!event.close){
-                    reporter.warn('The empty tag : [ '+tagName+' ] must be self closed.', event.line, event.col, self, event.raw);
+                if(event.close.trim() === '/'){
+                    reporter.info('There is no need to close tag ['+tagName+'].', event.line, event.col, self, event.raw);
                 }
             }
         });

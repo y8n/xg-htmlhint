@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2015, Yang Jiyuan <yjy972080142@gmail.com>
+ * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2015, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 var HTMLHint = (function (undefined) {
@@ -18,9 +19,9 @@ var HTMLHint = (function (undefined) {
         'tag-pair': true,
         'attr-lowercase': true,
         'attr-value-double-quotes': true,
+        'attr-no-duplication': true,
         'id-name-unique': true,
-        'spec-char-escape': true,
-        'attr-no-duplication': true
+        'spec-char-escape': true
     };
 
     HTMLHint.addRule = function(rule){
