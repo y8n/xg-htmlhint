@@ -136,13 +136,18 @@ function hintFile(filepath, ruleset){
         error:0,
         warning:0
     };
+    var outputStyle = {
+        error:"red",
+        warn:"yellow",
+        info:"green"
+    };
     if(messages.length > 0){
         console.log(filepath+':');
         messages.forEach(function(hint){
-            console.log('\tline %d, col %d: %s', hint.line, hint.col, hint.message[hint.type === 'error'?'red':'yellow']);
+            console.log('\tline %d, col %d: %s', hint.line, hint.col, hint.message[outputStyle[hint.type]]);
             if(hint.type === 'error'){
                 msgObj.error++;
-            }else{
+            }else if(hint.type === 'warn'){
                 msgObj.warning++;
             }
         });
