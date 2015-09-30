@@ -18,8 +18,8 @@ var HTMLHint = (function (undefined) {
         'tag-pair': true,
         'attr-lowercase': true,
         'attr-value-double-quotes': true,
+        'id-name-unique': true,
         'spec-char-escape': true,
-        'id-unique': true,
         'attr-no-duplication': true
     };
 
