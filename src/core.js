@@ -28,7 +28,23 @@ var HTMLHint = (function (undefined) {
         HTMLHint.rules[rule.id] = rule;
     };
 
-    HTMLHint.verify = function(html, ruleset){
+    HTMLHint.verify = function(html, rulesetOptions){
+        var ruleset = {};
+        for(var jj in rulesetOptions){
+            if(Object.getOwnPropertyNames(rulesetOptions).indexOf(jj) !== -1){
+                ruleset[jj] = rulesetOptions[jj];
+            }
+        }
+        /**
+         * 没有自定义地址的时候使用默认地址，有自定义的时候和默认地址合并
+         */
+        var _ruleset = {};
+        for(var ii in HTMLHint.defaultRuleset){
+            if(Object.getOwnPropertyNames(HTMLHint.defaultRuleset).indexOf(ii) !== -1){
+                _ruleset[ii] = HTMLHint.defaultRuleset[ii];
+            }
+        }
+
         // parse inline ruleset
         html = html.replace(/^\s*<!--\s*htmlhint\s+([^\r\n]+?)\s*-->/i, function(all, strRuleset){
             if(ruleset === undefined){
@@ -46,15 +62,6 @@ var HTMLHint = (function (undefined) {
             return '';
         });
 
-        /**
-         * 没有自定义地址的时候使用默认地址，有自定义的时候和默认地址合并
-         */
-        var _ruleset = {};
-        for(var ii in HTMLHint.defaultRuleset){
-            if(Object.getOwnPropertyNames(HTMLHint.defaultRuleset).indexOf(ii) !== -1){
-                _ruleset[ii] = HTMLHint.defaultRuleset[ii];
-            }
-        }
         if(ruleset && Object.keys(ruleset).length > 0){
             for(var i in ruleset){
                 if(Object.getOwnPropertyNames(ruleset).indexOf(i) !== -1){

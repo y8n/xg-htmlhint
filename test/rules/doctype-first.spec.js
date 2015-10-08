@@ -53,4 +53,13 @@ describe('Rules: '+ruldId, function(){
         expect(messages.length).to.be(0);
     });
 
+    it('lowercase "doctype" should result in an warn', function(){
+        var code = '<!doctype html><html></html>';
+        var messages = HTMLHint.verify(code, ruleOptions);
+        expect(messages.length).to.be(1);
+        expect(messages[0].line).to.be(1);
+        expect(messages[0].col).to.be(1);
+        expect(messages[0].type).to.be('warning');
+    });
+
 });

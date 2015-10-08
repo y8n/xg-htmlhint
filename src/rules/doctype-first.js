@@ -15,6 +15,9 @@ HTMLHint.addRule({
             if(event.type !== 'comment' || event.long || !/^DOCTYPE\s+/i.test(event.content)){
                 reporter.error('Doctype must be declared first.', event.line, event.col, self, event.raw);
             }
+            if(event.type === 'comment' && !event.long && /^doctype\s+/.test(event.content)){
+                reporter.warn('Doctype must be uppercase.', event.line, event.col, self, event.raw);
+            }
             parser.removeListener('all', allEvent);
         };
         parser.addListener('all', allEvent);
