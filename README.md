@@ -2,7 +2,6 @@
 
 xg-htmlhint 是一个静态的HTML代码检查工具，可以在命令行和页面脚本中使用。Fork自[https://github.com/yaniswang/HTMLHint](https://github.com/yaniswang/HTMLHint)，在其基础上做了部分改进和扩展。  
 
----
 ## Quick Start
 1. install & options
 
