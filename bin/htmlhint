@@ -138,7 +138,7 @@ function hintFile(filepath, ruleset){
     };
     var outputStyle = {
         error:"red",
-        warn:"yellow",
+        warning:"yellow",
         info:"green"
     };
     if(messages.length > 0){
@@ -147,7 +147,7 @@ function hintFile(filepath, ruleset){
             console.log('\tline %d, col %d: %s', hint.line, hint.col, hint.message[outputStyle[hint.type]]);
             if(hint.type === 'error'){
                 msgObj.error++;
-            }else if(hint.type === 'warn'){
+            }else if(hint.type === 'warning'){
                 msgObj.warning++;
             }
         });

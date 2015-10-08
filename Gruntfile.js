@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', ['jshint','clean', 'concat']);
 
-    grunt.registerTask('test', ['jshint', "concat",'mocha-hack']);
+    grunt.registerTask('test', ['build','mocha-hack']);
 
     grunt.registerTask('default', ['jshint', 'clean', 'concat', 'test', 'uglify', 'replace']);
 
