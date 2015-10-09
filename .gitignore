@@ -45,7 +45,8 @@ $RECYCLE.BIN/
 Icon
 
 # npm package
-node_modules
+node_modules/
+node_modules/*
 
 # Thumbnails
 ._*
