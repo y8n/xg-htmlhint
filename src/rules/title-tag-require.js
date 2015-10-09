@@ -10,7 +10,7 @@ HTMLHint.addRule({
         var self = this;
         var hasTitle = false,headBegin = false;
 
-        var checkTitle = function (event) {
+        var onHeadStart = function (event) {
             var tagName = event.tagName.toLowerCase();
 
             if(tagName === 'head'){
@@ -21,14 +21,20 @@ HTMLHint.addRule({
             }
         };
 
-        parser.addListener('tagstart', checkTitle);
-        parser.addListener('tagend', function(event){
+        var onHeadEnd = function (event) {
             var tagName = event.tagName.toLowerCase();
 
-            if(tagName === 'head' && !hasTitle){
-                reporter.error('There must be a title tag in head tag.', event.line, event.col, self, event.raw);
+            if(tagName === 'head'){
+                if(!hasTitle){
+                    reporter.error('There must be a title tag in head tag.', event.line, event.col, self, event.raw);
+                }
+                parser.removeListener('tagstart',onHeadStart);
+                parser.removeListener('tagend',onHeadEnd);
             }
-            parser.removeListener('tagstart',checkTitle);
-        });
+        };
+
+
+        parser.addListener('tagstart', onHeadStart);
+        parser.addListener('tagend', onHeadEnd);
     }
 });

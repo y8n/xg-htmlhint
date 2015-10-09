@@ -25,6 +25,10 @@ describe('Rules: '+ruldId, function(){
         var code = '<html><head></head></html>';
         var messages = HTMLHint.verify(code, ruleOptions);
         expect(messages.length).to.be(1);
+
+        code = '<html><title></title><head></head></html>';
+        messages = HTMLHint.verify(code, ruleOptions);
+        expect(messages.length).to.be(1);
     });
 
     it('title tag in head tag should not result in an error', function(){
