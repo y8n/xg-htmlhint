@@ -9,63 +9,31 @@ HTMLHint.addRule({
         var self = this,
             hasMetaTag = false,
             metaHasCharset = false;
-        var tagName,attrs,attr,firstMeta,headBegin;
+        var tagName,attrsMap,firstMeta,headBegin;
 
         var onTagStart = function (event) {
             tagName = event.tagName.toLowerCase();
             if(tagName.toLowerCase() === 'head'){
                 headBegin = event;
             }
-            if(tagName === 'meta' && !metaHasCharset){
+            if(tagName === 'meta'){
                 hasMetaTag = true;
                 if(!firstMeta){
                     firstMeta = event;
                 }
-                attrs = event.attrs;
-                var len=attrs.length, i,j;
+                attrsMap = parser.getMapAttrs(event.attrs);
 
-                for(i=0;i<len;i++){
-                    attr = attrs[i];
-                    if(attr.name.toLowerCase() === 'charset' && attr.value){
-                        metaHasCharset = true;
-                        break;
-                    }
-                }
-                if(metaHasCharset){
-                    return;
-                }
-                for(i=0;i<len;i++){
-                    attr = attrs[i];
-                    if(attr.name.toLowerCase() === 'http-equiv' && attr.value.toLowerCase() === 'charset'){
-                        for(j=0;j<len;j++){
-                            attr = attrs[j];
-                            if(attr.name.toLowerCase() === 'content' && attr.value){
-                                metaHasCharset = true;
-                                break;
-                            }
-                        }
-                        if(metaHasCharset){
-                            break;
-                        }
-                    }
-                }
-                if(metaHasCharset){
-                    return;
-                }
-                for(i=0;i<len;i++){
-                    attr = attrs[i];
-                    if(attr.name.toLowerCase() === 'http-equiv' && attr.value.toLowerCase() === 'content-type'){
-                        for(j=0;j<len;j++){
-                            attr = attrs[j];
-                            if(attr.name.toLowerCase() === 'content' && /;?\s*?charset=/.test(attr.value)){
-                                metaHasCharset = true;
-                                break;
-                            }
-                        }
-                        if(metaHasCharset){
-                            break;
-                        }
-                    }
+                if(
+                    ('charset' in attrsMap && attrsMap['charset']) ||
+                    ('http-equiv' in attrsMap && attrsMap['http-equiv'] && 'content' in attrsMap &&
+                        (
+                            (attrsMap['http-equiv'].toLowerCase() === 'charset'  && attrsMap['content']) ||
+                            (attrsMap['http-equiv'].toLowerCase() === 'content-type' && /;?\s*?charset=/.test(attrsMap['content']))
+                        )
+                    )
+                ){
+                    metaHasCharset = true;
+                    parser.removeListener('tagstart',onTagStart);
                 }
             }
         };
