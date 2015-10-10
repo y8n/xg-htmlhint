@@ -8,8 +8,8 @@ logs/
 logs/*
 .idea/
 .sass-cache
-test-output/
-test-output/*
+examples/
+examples/*
 
 # Windows image file caches
 Thumbs.db
