@@ -18,7 +18,7 @@ var HTMLHint = (function (undefined) {
         'tagname-lowercase': true,
         'tag-pair': true,
         'attr-lowercase': true,
-        'attr-value-double-quotes': true,
+        'attr-value-quotes': 'double',
         'attr-no-duplication': true,
         'id-name-unique': true,
         'spec-char-escape': true

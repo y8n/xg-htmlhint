@@ -7,7 +7,7 @@ var expect  = require("expect.js");
 
 var HTMLHint  = require("../../index").HTMLHint;
 
-var ruldId = 'attr-value-double-quotes',
+var ruldId = 'attr-value-quotes',
     ruleDoubleOptions = {},
     ruleSingleOptions = {};
 

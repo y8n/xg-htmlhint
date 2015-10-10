@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 HTMLHint.addRule({
-    id: 'attr-value-double-quotes',
+    id: 'attr-value-quotes',
     description: 'Attribute values must be in double quotes.',
     init: function(parser, reporter,option){
         var self = this;
