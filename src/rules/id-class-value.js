@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2015, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 HTMLHint.addRule({
@@ -32,13 +33,12 @@ HTMLHint.addRule({
                 message = rule.message;
             parser.addListener('tagstart', function(event){
                 var attrs = event.attrs,
-                    attr,
-                    col = event.col + event.tagName.length + 1;
+                    attr;
                 for(var i=0, l1=attrs.length;i<l1;i++){
                     attr = attrs[i];
                     if(attr.name.toLowerCase() === 'id'){
                         if(regId.test(attr.value) === false){
-                            reporter.warn(message, event.line, col + attr.index, self, attr.raw);
+                            reporter.warn(message, attr.line, attr.col, self, attr.raw);
                         }
                     }
                     if(attr.name.toLowerCase() === 'class'){
@@ -46,7 +46,7 @@ HTMLHint.addRule({
                         for(var j=0, l2=arrClass.length;j<l2;j++){
                             classValue = arrClass[j];
                             if(classValue && regId.test(classValue) === false){
-                                reporter.warn(message, event.line, col + attr.index, self, classValue);
+                                reporter.warn(message, attr.line, attr.col, self, attr.raw);
                             }
                         }
                     }

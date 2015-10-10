@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2015, Yanis Wang <yanis.wang@gmail.com>
+ * Copyright (c) 2015, YangJiyuan <yjy972080142@gmail.com>
  * MIT Licensed
  */
 
@@ -30,11 +31,11 @@ describe('Rules: '+ruldId, function(){
         expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be('id-class-value');
         expect(messages[0].line).to.be(1);
-        expect(messages[0].col).to.be(5);
+        expect(messages[0].col).to.be(6);
         expect(messages[0].type).to.be('warning');
         expect(messages[1].rule.id).to.be('id-class-value');
         expect(messages[1].line).to.be(1);
-        expect(messages[1].col).to.be(17);
+        expect(messages[1].col).to.be(18);
         expect(messages[1].type).to.be('warning');
     });
 
@@ -50,10 +51,10 @@ describe('Rules: '+ruldId, function(){
         expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be('id-class-value');
         expect(messages[0].line).to.be(1);
-        expect(messages[0].col).to.be(5);
+        expect(messages[0].col).to.be(6);
         expect(messages[1].rule.id).to.be('id-class-value');
         expect(messages[1].line).to.be(1);
-        expect(messages[1].col).to.be(17);
+        expect(messages[1].col).to.be(18);
     });
 
     it('Id and class value be lower case and split by dash should not result in an error', function(){
@@ -68,10 +69,10 @@ describe('Rules: '+ruldId, function(){
         expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be('id-class-value');
         expect(messages[0].line).to.be(1);
-        expect(messages[0].col).to.be(5);
+        expect(messages[0].col).to.be(6);
         expect(messages[1].rule.id).to.be('id-class-value');
         expect(messages[1].line).to.be(1);
-        expect(messages[1].col).to.be(17);
+        expect(messages[1].col).to.be(18);
     });
 
     it('Id and class value be meet hump style should not result in an error', function(){
@@ -81,15 +82,16 @@ describe('Rules: '+ruldId, function(){
     });
 
     it('Id and class value be not meet regexp should result in an error', function(){
-        var code = '<div id="aa-bb" class="ccc-ddd"></div>';
+        var code = '<div id="aa-bb"\n' +
+            ' class="ccc-ddd"></div>';
         var messages = HTMLHint.verify(code, ruleOptionsReg);
         expect(messages.length).to.be(2);
         expect(messages[0].rule.id).to.be('id-class-value');
         expect(messages[0].line).to.be(1);
-        expect(messages[0].col).to.be(5);
+        expect(messages[0].col).to.be(6);
         expect(messages[1].rule.id).to.be('id-class-value');
-        expect(messages[1].line).to.be(1);
-        expect(messages[1].col).to.be(16);
+        expect(messages[1].line).to.be(2);
+        expect(messages[1].col).to.be(2);
     });
 
     it('Id and class value be meet regexp should not result in an error', function(){
