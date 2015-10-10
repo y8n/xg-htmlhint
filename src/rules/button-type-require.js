@@ -10,7 +10,7 @@ HTMLHint.addRule({
         parser.addListener('tagstart', function(event){
             var attrsMap = parser.getMapAttrs(event.attrs);
 
-            if(!('type' in attrsMap) || !attrsMap['type']){
+            if(event.tagName === 'button' && (!('type' in attrsMap) || !attrsMap['type'])){
                 reporter.warn('button tag must have a type attribute.',event.line,event.col,self,event.raw);
             }
         });
