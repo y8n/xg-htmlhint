@@ -6,16 +6,23 @@
 HTMLHint.addRule({
     id: 'attr-value-double-quotes',
     description: 'Attribute values must be in double quotes.',
-    init: function(parser, reporter){
+    init: function(parser, reporter,option){
         var self = this;
+        var quotesMap = {
+            double:'"',
+            single:"'"
+        };
+        if(!(option in quotesMap)) {
+            option = 'double';
+        }
         parser.addListener('tagstart', function(event){
             var attrs = event.attrs,
                 attr;
             for(var i=0, l=attrs.length;i<l;i++){
                 attr = attrs[i];
-                if((attr.value !== '' && attr.quote !== '"') ||
-                    (attr.value === '' && attr.quote === "'")){
-                    reporter.error('The value of attribute [ '+attr.name+' ] must be in double quotes.', attr.line, attr.col, self, attr.raw);
+                if((attr.value !== '' && attr.quote !== quotesMap[option]) ||
+                    (attr.value === '' && attr.quote && attr.quote !== quotesMap[option])){
+                    reporter.error('The value of attribute [ '+attr.name+' ] must be in '+option+' quotes.', attr.line, attr.col, self, attr.raw);
                 }
             }
         });
