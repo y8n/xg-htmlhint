@@ -7,16 +7,16 @@ xg-htmlhint 是一个静态的HTML代码检查工具，可以在命令行和页�
 
 	```
 	npm install htmlhint -g
-	htmlhint -V
-	htmlhint -l
-	htmlhint -c rule.conf
+	xhtmlhint -V
+	xhtmlhint -l
+	xhtmlhint -c rule.conf
 	```
 2. hint
 	
 	```
-	htmlhint test.html
-	htmlhint test/
-	htmlhint 
+	xhtmlhint test.html
+	xhtmlhint test/
+	xhtmlhint 
 	```
 3. result
 
