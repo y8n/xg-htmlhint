@@ -9,7 +9,7 @@ HTMLHint.addRule({
         var self = this;
         parser.addListener('tagstart', function(event){
             if(event.tagName.toLowerCase() === 'style'){
-                reporter.warn('The <style> tag is not allowed.', event.line, event.col, self, event.raw);
+                reporter.error('The <style> tag is not allowed.', event.line, event.col, self, event.raw);
             }
         });
     }

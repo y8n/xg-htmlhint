@@ -22,7 +22,7 @@ describe('Rules: '+ruldId, function(){
         expect(messages[0].rule.id).to.be(ruldId);
         expect(messages[0].line).to.be(1);
         expect(messages[0].col).to.be(7);
-        expect(messages[0].type).to.be('warning');
+        expect(messages[0].type).to.be('error');
     });
 
     it('Stylesheet link should not result in an error', function(){
