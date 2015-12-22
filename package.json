@@ -1,13 +1,11 @@
 {
   "name": "xg-htmlhint",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "A Static Code Analysis Tool for HTML,Fork from https://github.com/yaniswang/HTMLHint.",
   "main": "./index",
   "dependencies": {
-    "commander": "2.6.0",
-    "colors": "1.0.3",
-    "jshint": "2.6.3",
-    "csslint": "0.10.0"
+    "commander": "^2.6.0",
+    "colors": "^1.0.3"
   },
   "devDependencies": {
     "expect.js": "0.2.0",
