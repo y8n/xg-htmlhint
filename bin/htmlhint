@@ -123,9 +123,6 @@ function processFiles(arrFiles, ruleset){
     if(allHintCountObj.error > 0 || allHintCountObj.warning > 0){
         console.log('\r\n%d Errors,%d Warnings'.red, allHintCountObj.error,allHintCountObj.warning);
     }
-    else{
-        console.log('Congratulations,There are no Error or Warning.'.green);
-    }
     return exitcode;
 }
 

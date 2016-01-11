@@ -1,6 +1,6 @@
 {
   "name": "xg-htmlhint",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A Static Code Analysis Tool for HTML,Fork from https://github.com/yaniswang/HTMLHint.",
   "main": "./index",
   "dependencies": {
