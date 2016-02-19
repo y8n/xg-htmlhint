@@ -1,3 +1,11 @@
 {
-    "attr-value-not-empty":true
+    'doctype-first': true,
+    'title-tag-require': true,
+    'tagname-lowercase': true,
+    'tag-pair': true,
+    'attr-lowercase': true,
+    'attr-value-quotes': 'double',
+    'attr-no-duplication': true,
+    'id-name-unique': true,
+    'spec-char-escape': true
 }
