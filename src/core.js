@@ -20,7 +20,7 @@ var HTMLHint = (function (undefined) {
         'attr-lowercase': true,
         'attr-value-quotes': 'double',
         'attr-no-duplication': true,
-        'id-name-unique': true,
+        'id-unique': true,
         'spec-char-escape': true
     };
 

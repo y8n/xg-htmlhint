@@ -3,8 +3,8 @@
  * MIT Licensed
  */
 HTMLHint.addRule({
-    id: 'id-name-unique',
-    description: 'The value of id/name attributes must be unique.',
+    id: 'id-unique',
+    description: 'The value of id attribute must be unique.',
     init: function(parser, reporter){
         var self = this;
         var mapAttrName = {};
@@ -15,7 +15,7 @@ HTMLHint.addRule({
             for(var i=0, l=attrs.length;i<l;i++){
                 attr = attrs[i];
                 attrName = attr.name.toLowerCase();
-                if(attrName === 'id' || 'name' === attrName){
+                if(attrName === 'id'){
                     if(attr.value && attr.value.trim()){
                         if(mapAttrName[attr.value]){
                             mapAttrName[attr.value].push(attr);

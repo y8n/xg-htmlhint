@@ -7,7 +7,7 @@ var expect  = require("expect.js");
 
 var HTMLHint  = require("../../index").HTMLHint;
 
-var ruldId = 'id-name-unique',
+var ruldId = 'id-unique',
     ruleOptions = {};
 
 ruleOptions[ruldId] = true;
@@ -25,29 +25,20 @@ describe('Rules: '+ruldId, function(){
         expect(messages[0].type).to.be('error');
     });
 
-    it('The same id or name should result in an error', function(){
+    it('The same name should not result in an error', function(){
         var code = '<div id="test"></div><input type="password" name="username"/><input type="text"\n' +
                     ' name="username"/>';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(1);
-        expect(messages[0].rule.id).to.be(ruldId);
-        expect(messages[0].line).to.be(2);
-        expect(messages[0].col).to.be(2);
-        expect(messages[0].type).to.be('error');
+        expect(messages.length).to.be(0);
     });
 
-    it('The same id and name should result in an error', function(){
+    it('The same id with name should not result in an error', function(){
         var code = '<div id="username">\n' +
                     '       <input type="password" name="username"/>\n' +
                     '        <input type="text" name="username"/>\n' +
                     '</div>';
         var messages = HTMLHint.verify(code, ruleOptions);
-        expect(messages.length).to.be(2);
-        expect(messages[0].rule.id).to.be(ruldId);
-        expect(messages[0].line).to.be(2);
-        expect(messages[0].col).to.be(31);
-        expect(messages[1].line).to.be(3);
-        expect(messages[1].col).to.be(28);
+        expect(messages.length).to.be(0);
     });
 
     it('different id or name should not result in an error', function(){
